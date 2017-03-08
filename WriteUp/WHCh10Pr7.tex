@@ -1,0 +1,92 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumerate}
+
+\geometry{top=1in,
+		left=0.5in,
+		right=0.5in,
+		bottom=1in}
+	
+\newcommand{\bone}{\mathbf{1}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\sD}{\mathcal{D}}
+\newcommand{\bm}{\mathbf{m}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+	
+\title{West \& Harrison Chapter 10, Problem 7}
+\author{The Dans}
+\date{Thursday, March 16, 2017}
+
+\begin{document}
+	\maketitle
+	
+	The quarterly sales and cost index of a confectionary product are given in figure \ref{fig:data}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.4\linewidth]{D:/Documents/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/Data}
+		\caption{The data associated with the problem}
+		\label{fig:data}
+	\end{figure}
+	The goal is to fit a DLM to the sales with first-order polynomial, regression on cost, and full seasonal components. Based on previous information, 
+	\begin{itemize}
+		\item the underlying level of the series when cost is zero is 220 with a nominal standard error of 15
+		\item the regression coefficient of cost is estimated as -1.5 with a standard error of about 0.7
+		\item the seasonal factors for the four quarters of the first year are expected to be -50, 25, 50, -25, with nominal standard errors of 25, 15, 25, and 15, respectively
+		\item the trend, regression, and seasonal components are initially assumed to be uncorrelated
+		\item the observational variance is estimated as 100, with initial degrees of freedom of 12
+	\end{itemize}
+	Using this information, we are to analyze the series along the following lines:
+	\begin{enumerate}[(a)]
+		\item \textbf{Using the information provided for the seasonal factors above, apply Theorem 8.2 to derive the appropriate initial prior that satisfies the zero-sum constraint.}
+		
+		\textit{Theorem 8.2: Imposing the constraint $\bone'\bphi = 0$ on the prior $(\bphi_0|\sD_0^*) \sim \text{N}(\bm_0^*,\bC_0^*)$ and writing $U = \bone'\bC_0^*\bone$ and $\bA = \bC_0^*\bone/U$ gives the revised joint prior}
+		\begin{align*}
+			(\bphi_0|\sD_0) & \sim \text{N}(\bm_0,\bC_0),\\
+			\bm_0 = \bm_0^* & - \bA\bone'\bm_0^*,\\
+			\bC_0 = \bC_0^* & - \bA\bA'U.
+		\end{align*} 
+		Using the given information for the seasonal components,
+		\begin{align*}
+			\bm_0^* & = (-50,25,50,-25)' &
+			\bC_0^* & = \begin{pmatrix}
+				625 & 0 & 0 & 0 \\
+				0 & 225 & 0 & 0 \\
+				0 & 0 & 625 & 0 \\
+				0 & 0 & 0 & 225
+			\end{pmatrix}.
+		\end{align*}
+		Applying Theorem 8.2 yields
+		\begin{align*}
+			U & = 1700 \\ A & = (0.3676471, 0.1323529, 0.3676471, 0.1323529)' \\
+			\bm_0^s & = (-50,  25,  50, -25)' \\
+			\bC_0^s & = \begin{pmatrix}
+			395.22 & -82.72 & -229.78 & -82.72 \\ 
+			-82.72 & 195.22 & -82.72 & -29.78 \\ 
+			-229.78 & -82.72 & 395.22 & -82.72 \\ 
+			-82.72 & -29.78 & -82.72 & 195.22 \\ 
+			\end{pmatrix}.
+		\end{align*}
+		This leads to the initial prior satisfying the zero-sum constraint for the seasonal components to be $(\bphi_0|\sD_0) \sim \text{N}(\bm_0^s,\bC_0^s)$. Given a state vector $\btheta_t = (\theta_{1,t},\theta_{2,t},\phi_{1,t},\ldots,\phi_{4,t})'$, the initial prior for the DLM is of the form $(\btheta_0|\sD_0) \sim \text{N}(\bm_0,\bC_0)$, where
+		\begin{align*}
+			\bm_0 & = (220,-1.5, -50,  25,  50, -25)' \\
+			\bC_0 & = \begin{pmatrix}
+			225.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
+			0.00 & 0.49 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
+			0.00 & 0.00 & 395.22 & -82.72 & -229.78 & -82.72 \\ 
+			0.00 & 0.00 & -82.72 & 195.22 & -82.72 & -29.78 \\ 
+			0.00 & 0.00 & -229.78 & -82.72 & 395.22 & -82.72 \\ 
+			0.00 & 0.00 & -82.72 & -29.78 & -82.72 & 195.22 \\ 
+			\end{pmatrix}.
+		\end{align*}
+		
+		\item 
+		
+	\end{enumerate}
+	
+	
+\end{document}

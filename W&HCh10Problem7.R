@@ -1,3 +1,4 @@
+##### Read in the Data #####
 s <- c(157,227,240,191,
        157,232,254,198,
        169,234,241,167,
@@ -25,3 +26,24 @@ cost <- ts(c,frequency = 4,start=c(1975,1))
 
 plot(sales,col='red')
 plot(cost,col='blue')
+
+
+##### Part A #####
+m0.star <- c(-50,25,50,-25)
+C0.star <- diag(c(625,225,625,225))
+
+U <- c(crossprod(rep(1,4),C0.star)%*%rep(1,4))
+A <- c(C0.star%*%rep(1,4)/U)
+
+m0s <- c(m0.star - tcrossprod(A,rep(1,4))%*%m0.star)
+C0s <- C0.star - tcrossprod(A,A)*U
+
+library(xtable)
+xCs <- xtable(C0s)
+print(xCs,include.rownames = F)
+
+m0 <- c(220,-1.5,m0s)
+library(dlm)
+C0 <- bdiag(matrix(c(225,0,0,0.49),2,2),C0s)
+xC <- xtable(C0)
+print(xC,include.rownames = F)
