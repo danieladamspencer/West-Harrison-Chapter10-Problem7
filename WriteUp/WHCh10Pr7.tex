@@ -93,7 +93,7 @@
 		
 		The DLM model in this case is defined as $\{ \bF_t, \bG,V,\bW_t \}$, with 
 		\begin{align*}
-			\bF_t & = (1,\text{Cost}_t,1,0,0,0)' \\
+			\bF_t & = (1,\text{Cost}_t,1,0,0,0)' &
 			\bG & = \begin{pmatrix}
 			1 & 0 & 0 & 0 & 0 & 0 \\
 			0 & 1 & 0 & 0 & 0 & 0 \\
@@ -115,9 +115,11 @@
 			0.00 & 0.00 & -82.72 & -229.78 & -82.72 & 395.22 
 			\end{pmatrix}  + \bW_t\\
 			n_0 & = 12 \\
-			S_0 & = 100,
+			S_0 & = 100.
 		\end{align*}
-		and $(\btheta_1|\sD_0) \sim \text{T}_{12}(\ba_1,\bR_1)$
+		Therefore, $(\btheta_1|\sD_0) \sim \text{T}_{12}(\ba_1,\bR_1)$ and $(V|\sD_0) \sim \text{Inverse Gamma}(n_0/2,d_0/2)$, where $d_0 = n_0S_0 = 1200$.
+		
+		\item \textbf{Use three discount factors to structure the evolution matrices of the model: $\delta_T$ for the constant intercept term, $\delta_R$ for the regression coefficient, and $\delta_S$ for the seasonal factors. Consider initially the values $\delta_T = \delta_S = 0.9$ and $\delta_R = 0.98$. Fit the model and perform the retrospective, filtering calculations to obtain filtered estimates of the state vector and all model components over time.}
 		
 	\end{enumerate}
 	

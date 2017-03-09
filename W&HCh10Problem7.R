@@ -62,3 +62,47 @@ GGCGG <- GG%*%C0%*%t(GG)
 
 xGCG <- xtable(GGCGG)
 print(xGCG,include.rownames = F)
+
+##### Part C #####
+TT <- length(sales)
+dT <- dS <- 0.9
+dR <- 0.98
+S0 <- 100
+n0 <- 12
+
+at <- mt <- At <- matrix(NA,6,TT)
+Rt <- Ct <- Wt <- array(NA,dim = c(TT,6,6))
+ft <- qt <- St <- et <- nt <- numeric(TT)
+
+at[,1] <- GG%*%m0
+Wt[1,,] <- bdiag((1-dT)*C0[1,1]/dT,(1-dR)*C0[2,2]/dR,(1-dS)*C0[-(1:2),-(1:2)]/dS)
+Rt[1,,] <- GG%*%C0%*%t(GG) + Wt[1,,]
+qt[1] <- crossprod(FF[,1],Rt[1,,])%*%FF[,1] + S0
+ft[1] <- crossprod(FF[,1],at[,1])
+nt[1] <- n0 + 1
+et[1] <- sales[1] - ft[1]
+St[1] <- S0 + (S0/nt[1])*(et[1]^2 / qt[1] - 1)
+At[,1] <- Rt[1,,]%*%FF[,1]/qt[1] 
+Ct[1,,] <- (St[1]/S0)*(Rt[1,,] - tcrossprod(At[,1],At[,1])*qt[1])
+mt[,1] <- at[,1] + At[,1]*et[1]
+
+## Update equations ##
+for(t in 2:TT){
+  at[,t] <- GG%*%mt[,(t-1)]
+  Wt[t,,] <- bdiag((1-dT)*Ct[(t-1),1,1]/dT,(1-dR)*Ct[(t-1),2,2]/dR,(1-dS)*Ct[(t-1),-(1:2),-(1:2)]/dS)
+  Rt[t,,] <- GG%*%Ct[(t-1),,]%*%t(GG) + Wt[t,,]
+  qt[t] <- crossprod(FF[,t],Rt[t,,])%*%FF[,t] + St[(t-1)]
+  ft[t] <- crossprod(FF[,t],at[,t])
+  nt[t] <- nt[(t-1)] + 1
+  et[t] <- sales[t] - ft[t]
+  St[t] <- S0 + (St[(t-1)]/nt[t])*(et[t]^2 / qt[t] - 1)
+  At[,t] <- Rt[t,,]%*%FF[,t]/qt[t] 
+  Ct[t,,] <- (St[t]/St[(t-1)])*(Rt[t,,] - tcrossprod(At[,t],At[,t])*qt[t])
+  mt[,t] <- at[,t] + At[,t]*et[t]
+}
+
+## Plot showing the observed sales and the forecast values for each time
+plot(sales,main="Sales of an Confectionary Product")
+lines(ts(ft,frequency = 4,start=c(1975,1)),col='blue')
+legend('bottomright',legend = c("Observed","Forecasted"),col=c('black','blue'),
+       lty=c(1,1),bty='n')
