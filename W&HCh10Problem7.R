@@ -106,3 +106,36 @@ plot(sales,main="Sales of an Confectionary Product")
 lines(ts(ft,frequency = 4,start=c(1975,1)),col='blue')
 legend('bottomright',legend = c("Observed","Forecasted"),col=c('black','blue'),
        lty=c(1,1),bty='n')
+
+## Plot showing the filtered estimates of the state vector
+windows(21,14)
+# pdf(file="~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/Filteredestimates.pdf",width = 21, height=14)
+par(mfrow=c(2,3),cex.axis=2.5,cex.main=2)
+plot(ts(mt[1,],frequency = 4,start=c(1975,1)),main="Trend Effect",ylab="",lwd=2)
+plot(ts(mt[2,],frequency = 4,start=c(1975,1)),main="Regression Effect",ylab="",lwd=2)
+plot(ts(mt[3,],frequency = 4,start=c(1975,1)),main="First Seasonal Effect",ylab="",lwd=2)
+plot(ts(mt[4,],frequency = 4,start=c(1975,1)),main="Second Seasonal Effect",ylab="",lwd=2)
+plot(ts(mt[5,],frequency = 4,start=c(1975,1)),main="Third Seasonal Effect",ylab="",lwd=2)
+plot(ts(mt[6,],frequency = 4,start=c(1975,1)),main="Fourth Seasonal Effect",ylab="",lwd=2)
+dev.off()
+
+## Plot showing the forecast distribution for sales
+fdist <- apply(cbind(ft,qt,nt),1,function(z){c(z[1]-qt(0.975,df=z[3])*sqrt(z[2]),z[1]+qt(0.975,df=z[3])*sqrt(z[2]),z[1])})
+# pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/ForecastDist.pdf")
+plot(sales,main="Forecast",ylim=c(min(c(fdist)),max(c(fdist))),lwd=3)
+lines(ts(fdist[1,],frequency = 4,start = c(1975,1)),col='blue',lty=3,lwd=2)
+lines(ts(fdist[2,],frequency = 4,start = c(1975,1)),col='blue',lty=3,lwd=2)
+lines(ts(fdist[3,],frequency = 4,start = c(1975,1)),col='blue',lwd=3)
+legend(1978,135,legend = c("Observed","Forecast","95% CI"),col=c("black",rep('blue',2)),lty=c(1,1,3),lwd=c(3,3,2))
+dev.off()
+
+##### Part D #####
+
+## Plot showing the relative stability of the regression parameter over time
+cdist <- apply(cbind(mt[2,],Ct[,2,2],nt),1,function(z){c(z[1] - qt(0.975,df=z[3])*sqrt(z[2]),z[1] + qt(0.975,df=z[3])*sqrt(z[2]))})
+pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/CostandRegressionParm.pdf")
+plot(cost,main="Cost and Regression Parameter",lwd=3,ylab='')
+apply(cdist,1,function(z){lines(ts(z,frequency = 4,start = c(1975,1)),col='red',lty=3,lwd=2)})
+lines(ts(mt[2,],frequency = 4,start = c(1975,1)),col='red',lwd=3)
+legend('topleft',legend=c("Cost","Parameter Estimate","95% Parameter CI"),col=c('black',rep('red',2)),lwd=c(3,3,2),lty=c(1,1,3),bty='n')
+dev.off()

@@ -4,6 +4,7 @@
 \usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{enumerate}
+\usepackage{natbib}
 
 \geometry{top=1in,
 		left=0.5in,
@@ -30,13 +31,18 @@
 \begin{document}
 	\maketitle
 	
-	The quarterly sales and cost index of a confectionary product are given in figure \ref{fig:data}.
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\linewidth]{Data}
-		\caption{The data associated with the problem}
-		\label{fig:data}
-	\end{figure}
+	The quarterly sales and cost index of a confectionary product are given as  %in figure \ref{fig:data}.
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=0.4\linewidth]{Data}
+%		\caption{The data associated with the problem}
+%		\label{fig:data}
+%	\end{figure}
+
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{Data}
+	\end{center}
+
 	The goal is to fit a DLM to the sales with first-order polynomial, regression on cost, and full seasonal components. Based on previous information, 
 	\begin{itemize}
 		\item the underlying level of the series when cost is zero is 220 with a nominal standard error of 15
@@ -121,7 +127,41 @@
 		
 		\item \textbf{Use three discount factors to structure the evolution matrices of the model: $\delta_T$ for the constant intercept term, $\delta_R$ for the regression coefficient, and $\delta_S$ for the seasonal factors. Consider initially the values $\delta_T = \delta_S = 0.9$ and $\delta_R = 0.98$. Fit the model and perform the retrospective, filtering calculations to obtain filtered estimates of the state vector and all model components over time.}
 		
+		The filtered estimates of each component of the state vector are shown in figure \ref{fig:filteredestimates}. The one-step ahead forecast and 95\% confidence interval can be seen in figure \ref{fig:forecastdist}.
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=\linewidth]{Filteredestimates}
+			\caption{Filtered estimates for all components of the state vector}
+			\label{fig:filteredestimates}
+		\end{figure}
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{ForecastDist}
+			\caption{One-step ahead forecast estimate and 95\% confidence interval}
+			\label{fig:forecastdist}
+		\end{figure}
+		
+		\item \textbf{Based on this analysis, verify the findings in \cite{WHP1987b} to the effect that the regression parameter on Cost is, in retrospect, rather stable over time.}
+		
+		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter. Based on this plot, it does not appear that the values for the regression parameter change very much over time, always hovering between -1 and -2.
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{CostandRegressionParm}
+			\caption{Plot of the observed cost and a summary of the distribution of the regression parameter}
+			\label{fig:costandregressionparm}
+		\end{figure}
+		
+		\item \textbf{Produce step ahead forecasts from the end of the data in the fourth quarter of 1985 for the next three years. The estimated values of Cost to be used in forecasting ahead are given by}
+		\begin{center}
+			\includegraphics[width=0.5\linewidth]{CostFuture}
+		\end{center}
+		
 	\end{enumerate}
 	
+\bibliography{WHCh10Pr7}
+\bibliographystyle{plainnat}
 	
 \end{document}
