@@ -47,3 +47,18 @@ library(dlm)
 C0 <- bdiag(matrix(c(225,0,0,0.49),2,2),C0s)
 xC <- xtable(C0)
 print(xC,include.rownames = F)
+
+##### Part B #####
+FF <- sapply(cost,function(z){c(1,z,1,rep(0,3))})
+GG <- matrix(c(1,0,0,0,0,0,
+               0,1,0,0,0,0,
+               0,0,0,1,0,0,
+               0,0,0,0,1,0,
+               0,0,0,0,0,1,
+               0,0,1,0,0,0),6,6,byrow = T)
+
+a1 <- c(GG%*%m0)
+GGCGG <- GG%*%C0%*%t(GG)
+
+xGCG <- xtable(GGCGG)
+print(xGCG,include.rownames = F)
