@@ -29,8 +29,12 @@ plot(cost,col='blue')
 
 
 ##### Part A #####
-m0.star <- c(-50,25,50,-25)
-C0.star <- diag(c(625,225,625,225))
+#m0.star <- c(-50,25,50,-25)
+#C0.star <- diag(c(625,225,625,225))
+
+#DK CORRECTION offset by 1
+m0.star <- c(-25,-50,25,50)
+C0.star <- diag(c(225,625,225,625))
 
 U <- c(crossprod(rep(1,4),C0.star)%*%rep(1,4))
 A <- c(C0.star%*%rep(1,4)/U)
@@ -102,6 +106,20 @@ for(t in 2:TT){
 }
 
 ## Plot showing the observed sales and the forecast values for each time
+#DAN KIRSNER ADDITION, extract the quarterly components in an easier to understand fashion
+q1=NULL
+q2=NULL
+q3=NULL
+q4=NULL
+for(m in 1:length(cost))
+{
+  q1=c(q1,mt[6-(m+3)%%4,m])
+  q2=c(q2,mt[6-(m+0)%%4,m])
+  q3=c(q3,mt[6-(m+1)%%4,m])
+  q4=c(q4,mt[6-(m+2)%%4,m])
+}
+
+
 plot(sales,main="Sales of an Confectionary Product")
 lines(ts(ft,frequency = 4,start=c(1975,1)),col='blue')
 legend('bottomright',legend = c("Observed","Forecasted"),col=c('black','blue'),
@@ -113,10 +131,10 @@ windows(21,14)
 par(mfrow=c(2,3),cex.axis=2.5,cex.main=2)
 plot(ts(mt[1,],frequency = 4,start=c(1975,1)),main="Trend Effect",ylab="",lwd=2)
 plot(ts(mt[2,],frequency = 4,start=c(1975,1)),main="Regression Effect",ylab="",lwd=2)
-plot(ts(mt[3,],frequency = 4,start=c(1975,1)),main="First Seasonal Effect",ylab="",lwd=2)
-plot(ts(mt[4,],frequency = 4,start=c(1975,1)),main="Second Seasonal Effect",ylab="",lwd=2)
-plot(ts(mt[5,],frequency = 4,start=c(1975,1)),main="Third Seasonal Effect",ylab="",lwd=2)
-plot(ts(mt[6,],frequency = 4,start=c(1975,1)),main="Fourth Seasonal Effect",ylab="",lwd=2)
+plot(ts(q1,frequency = 4,start=c(1975,1)),main="First Quarter Effect",ylab="",lwd=2)
+plot(ts(q2,frequency = 4,start=c(1975,1)),main="Second Quarter Effect",ylab="",lwd=2)
+plot(ts(q3,frequency = 4,start=c(1975,1)),main="Third Quarter Effect",ylab="",lwd=2)
+plot(ts(q4,frequency = 4,start=c(1975,1)),main="Fourth Quarter Effect",ylab="",lwd=2)
 dev.off()
 
 ## Plot showing the forecast distribution for sales
@@ -139,3 +157,86 @@ apply(cdist,1,function(z){lines(ts(z,frequency = 4,start = c(1975,1)),col='red',
 lines(ts(mt[2,],frequency = 4,start = c(1975,1)),col='red',lwd=3)
 legend('topleft',legend=c("Cost","Parameter Estimate","95% Parameter CI"),col=c('black',rep('red',2)),lwd=c(3,3,2),lty=c(1,1,3),bty='n')
 dev.off()
+
+#Refit model with non dynamic slope (by setting that discount factor to 1)
+#then show predictions are the same
+TT_non_dynamic <- length(sales)
+dT_non_dynamic  <- dS_non_dynamic  <- 0.9
+dR_non_dynamic  <- 1
+S0_non_dynamic  <- 100
+n0_non_dynamic  <- 12
+
+at_non_dynamic  <- mt_non_dynamic  <- At_non_dynamic  <- matrix(NA,6,TT_non_dynamic )
+Rt_non_dynamic  <- Ct_non_dynamic  <- Wt_non_dynamic  <- array(NA,dim = c(TT_non_dynamic ,6,6))
+ft_non_dynamic  <- qt_non_dynamic  <- St_non_dynamic  <- et_non_dynamic  <- nt_non_dynamic  <- numeric(TT_non_dynamic )
+
+at_non_dynamic [,1] <- GG%*%m0
+Wt_non_dynamic[1,,] <- bdiag((1-dT_non_dynamic )*C0[1,1]/dT_non_dynamic ,(1-dR_non_dynamic )*C0 [2,2]/dR_non_dynamic ,(1-dS_non_dynamic )*C0[-(1:2),-(1:2)]/dS_non_dynamic )
+Rt_non_dynamic[1,,] <- GG%*%C0%*%t(GG) + Wt_non_dynamic[1,,]
+qt_non_dynamic[1] <- crossprod(FF[,1],Rt_non_dynamic[1,,])%*%FF[,1] + S0
+ft_non_dynamic[1] <- crossprod(FF[,1],at[,1])
+nt_non_dynamic[1] <- n0_non_dynamic  + 1
+et_non_dynamic[1] <- sales[1] - ft_non_dynamic [1]
+St_non_dynamic[1] <- S0_non_dynamic  + (S0_non_dynamic /nt_non_dynamic [1])*(et_non_dynamic [1]^2 / qt_non_dynamic [1] - 1)
+At_non_dynamic[,1] <- Rt_non_dynamic [1,,]%*%FF[,1]/qt_non_dynamic [1] 
+Ct_non_dynamic[1,,] <- (St_non_dynamic [1]/S0_non_dynamic )*(Rt_non_dynamic [1,,] - tcrossprod(At_non_dynamic [,1],At_non_dynamic [,1])*qt_non_dynamic [1])
+mt_non_dynamic[,1] <- at[,1] + At[,1]*et[1]
+
+## Update equations ##
+for(t in 2:TT_non_dynamic){
+  at_non_dynamic[,t] <- GG%*%mt_non_dynamic[,(t-1)]
+  Wt_non_dynamic[t,,] <- bdiag((1-dT_non_dynamic)*Ct_non_dynamic[(t-1),1,1]/dT_non_dynamic,(1-dR_non_dynamic)*Ct_non_dynamic[(t-1),2,2]/dR_non_dynamic,(1-dS_non_dynamic)*Ct_non_dynamic[(t-1),-(1:2),-(1:2)]/dS_non_dynamic)
+  Rt_non_dynamic[t,,] <- GG%*%Ct_non_dynamic[(t-1),,]%*%t(GG) + Wt_non_dynamic[t,,]
+  qt_non_dynamic[t] <- crossprod(FF[,t],Rt_non_dynamic[t,,])%*%FF[,t] + St_non_dynamic[(t-1)]
+  ft_non_dynamic[t] <- crossprod(FF[,t],at_non_dynamic[,t])
+  nt_non_dynamic[t] <- nt_non_dynamic[(t-1)] + 1
+  et_non_dynamic[t] <- sales[t] - ft_non_dynamic[t]
+  St_non_dynamic[t] <- S0_non_dynamic + (St_non_dynamic[(t-1)]/nt_non_dynamic[t])*(et_non_dynamic[t]^2 / qt_non_dynamic[t] - 1)
+  At_non_dynamic[,t] <- Rt_non_dynamic[t,,]%*%FF[,t]/qt_non_dynamic[t] 
+  Ct_non_dynamic[t,,] <- (St_non_dynamic[t]/St_non_dynamic[(t-1)])*(Rt_non_dynamic[t,,] - tcrossprod(At_non_dynamic[,t],At_non_dynamic[,t])*qt_non_dynamic[t])
+  mt_non_dynamic[,t] <- at_non_dynamic[,t] + At_non_dynamic[,t]*et_non_dynamic[t]
+}
+
+## Plot showing the observed sales and the forecast values for each time
+plot(sales,main="Dynamic versus static slope in the DLM")
+lines(ts(ft,frequency = 4,start=c(1975,1)),col='green')
+lines(ts(ft_non_dynamic,frequency=4,start=c(1975,1)),col="blue")
+legend('bottom',legend = c("Observed","Forecasted non dynamic slope","Forecasted dynamic slope"),col=c('black','green','blue'),
+       lty=c(1,1),bty='n')
+mtext(side=3,line=-1,text=paste0("correlation between the two forecasts=",round(cor(ft,ft_non_dynamic),4)))
+
+##### Part E #####
+
+#please check DK's math, but I the discount factor predictions can be written cutely (like in H&W page 199 for single component)
+cost_future=c(8.4, 10.6, 7.2 ,13.0,-2.9 ,-0.7 ,-6.4, -7.0, -14.9 ,-15.9 ,-18.0 ,-22.3)
+
+FF_future <- sapply(cost_future,function(z){c(1,z,1,rep(0,3))})
+at0=mt[,44]
+rt0=Ct[44,,]
+Rt_future=array(0,dim=c(12,6,6))
+at_future=matrix(0,6,12)
+qt_future=rep(0,12)
+ft_future=rep(0,12)
+discounter=c(1/dT,1/dR,rep(1/dS,4))
+
+
+Rt_future[1,,]=GG%*%rt0%*%t(GG)%*%diag(discounter)
+at_future[,1]=GG%*%at0
+qt_future[1]=t(FF_future[,1])%*%Rt_future[1,,]%*%FF_future[,1]+St[44]
+ft_future[1]=t(FF_future[,1])%*%at_future[,1]
+for(z in 2:12)
+{
+  Rt_future[z,,]=GG%*%rt0%*%t(GG)%*%(diag(discounter^z))
+  at_future[,z]=GG%*%at_future[,z-1]
+  qt_future[z]=t(FF_future[,z])%*%Rt_future[z,,]%*%FF_future[,z]+St[44]
+  ft_future[z]=t(FF_future[,z])%*%at_future[,z]
+}
+lower_bound=ft_future-qt(.95, 44-6)*sqrt(qt_future)
+upper_bound=ft_future+qt(.95, 44-6)*sqrt(qt_future)
+
+plot(sales,main="Sales of an Confectionary Product",xlim=c(1975,1989),ylim=c(min(c(sales,lower_bound)),max(c(sales,upper_bound))))
+lines(ts(lower_bound,frequency = 4,start=c(1986,1)),col='green')
+lines(ts(ft_future,frequency=4,start=c(1986,1)),col="blue")
+lines(ts(upper_bound,frequency = 4,start=c(1986,1)),col='green')
+legend('topleft',legend = c("Observed","Forecasted Mean","Forecasted 90% Prediction Interval"),col=c('black','blue','green'),
+       lty=c(1,1),bty='n')
