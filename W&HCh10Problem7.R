@@ -151,7 +151,7 @@ dev.off()
 
 ## Plot showing the relative stability of the regression parameter over time
 cdist <- apply(cbind(mt[2,],Ct[,2,2],nt),1,function(z){c(z[1] - qt(0.975,df=z[3])*sqrt(z[2]),z[1] + qt(0.975,df=z[3])*sqrt(z[2]))})
-pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/CostandRegressionParm.pdf")
+# pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/CostandRegressionParm.pdf")
 plot(cost,main="Cost and Regression Parameter",lwd=3,ylab='')
 apply(cdist,1,function(z){lines(ts(z,frequency = 4,start = c(1975,1)),col='red',lty=3,lwd=2)})
 lines(ts(mt[2,],frequency = 4,start = c(1975,1)),col='red',lwd=3)
@@ -198,12 +198,14 @@ for(t in 2:TT_non_dynamic){
 }
 
 ## Plot showing the observed sales and the forecast values for each time
-plot(sales,main="Dynamic versus static slope in the DLM")
-lines(ts(ft,frequency = 4,start=c(1975,1)),col='green')
-lines(ts(ft_non_dynamic,frequency=4,start=c(1975,1)),col="blue")
-legend('bottom',legend = c("Observed","Forecasted non dynamic slope","Forecasted dynamic slope"),col=c('black','green','blue'),
-       lty=c(1,1),bty='n')
-mtext(side=3,line=-1,text=paste0("correlation between the two forecasts=",round(cor(ft,ft_non_dynamic),4)))
+# pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/DynVsStaticSlope.pdf")
+plot(sales,main="Dynamic versus static slope in the DLM",lwd=3)
+lines(ts(ft,frequency = 4,start=c(1975,1)),col='green',lwd=3)
+lines(ts(ft_non_dynamic,frequency=4,start=c(1975,1)),col="blue",lwd=3)
+legend(1976.5,160,legend = c("Observed","Forecasted non dynamic slope","Forecasted dynamic slope"),col=c('black','green','blue'),
+       lty=c(1,1,1),lwd=c(3,3,3),bty='n')
+mtext(side=3,line=0,text=paste0("correlation between the two forecasts=",round(cor(ft,ft_non_dynamic),4)))
+dev.off()
 
 ##### Part E #####
 
@@ -234,9 +236,12 @@ for(z in 2:12)
 lower_bound=ft_future-qt(.95, 44-6)*sqrt(qt_future)
 upper_bound=ft_future+qt(.95, 44-6)*sqrt(qt_future)
 
-plot(sales,main="Sales of an Confectionary Product",xlim=c(1975,1989),ylim=c(min(c(sales,lower_bound)),max(c(sales,upper_bound))))
-lines(ts(lower_bound,frequency = 4,start=c(1986,1)),col='green')
-lines(ts(ft_future,frequency=4,start=c(1986,1)),col="blue")
-lines(ts(upper_bound,frequency = 4,start=c(1986,1)),col='green')
+# pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/StepAhead.pdf")
+plot(sales,main="Sales of an Confectionary Product",xlim=c(1975,1989),
+     ylim=c(min(c(sales,lower_bound)),max(c(sales,upper_bound))),lwd=3)
+lines(ts(lower_bound,frequency = 4,start=c(1986,1)),col='green',lwd=3,lty=3)
+lines(ts(ft_future,frequency=4,start=c(1986,1)),col="blue",lwd=3)
+lines(ts(upper_bound,frequency = 4,start=c(1986,1)),col='green',lwd=3,lty=3)
 legend('topleft',legend = c("Observed","Forecasted Mean","Forecasted 90% Prediction Interval"),col=c('black','blue','green'),
-       lty=c(1,1),bty='n')
+       lty=c(1,1,3),bty='n',lwd=rep(3,3))
+dev.off()

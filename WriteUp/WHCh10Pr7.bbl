@@ -1,9 +1,19 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Harrison and West(1999)]{harrison1999bayesian}
+Jeff Harrison and Mike West.
+\newblock \emph{Bayesian forecasting \& dynamic models}.
+\newblock Springer New York, 1999.
+
+\bibitem[Prado and West(2010)]{prado2010time}
+Raquel Prado and Mike West.
+\newblock \emph{Time series: modeling, computation, and inference}.
+\newblock CRC Press, 2010.
 
 \bibitem[West et~al.(1987)West, Harrison, and Pole]{WHP1987b}
 M~West, PJ~Harrison, and A~Pole.

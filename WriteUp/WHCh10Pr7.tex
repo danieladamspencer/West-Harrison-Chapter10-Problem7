@@ -63,35 +63,35 @@
 		\end{align*} 
 		Using the given information for the seasonal components,
 		\begin{align*}
-			\bm_0^* & = (-50,25,50,-25)' &
+			\bm_0^* & = (-25,-50,25,50)' &
 			\bC_0^* & = \begin{pmatrix}
-				625 & 0 & 0 & 0 \\
-				0 & 225 & 0 & 0 \\
-				0 & 0 & 625 & 0 \\
-				0 & 0 & 0 & 225
+				225 & 0 & 0 & 0 \\
+				0 & 625 & 0 & 0 \\
+				0 & 0 & 225 & 0 \\
+				0 & 0 & 0 & 625
 			\end{pmatrix}.
 		\end{align*}
 		Applying Theorem 8.2 yields
 		\begin{align*}
-			U & = 1700 \\ A & = (0.3676471, 0.1323529, 0.3676471, 0.1323529)' \\
-			\bm_0^s & = (-50,  25,  50, -25)' \\
+			U & = 1700 \\ A & = (0.1323529, 0.3676471, 0.1323529, 0.3676471)' \\
+			\bm_0^s & = (-25,-50,25,50)' \\
 			\bC_0^s & = \begin{pmatrix}
-			395.22 & -82.72 & -229.78 & -82.72 \\ 
-			-82.72 & 195.22 & -82.72 & -29.78 \\ 
-			-229.78 & -82.72 & 395.22 & -82.72 \\ 
-			-82.72 & -29.78 & -82.72 & 195.22 \\ 
+			195.22 & -82.72 & -29.78 & -82.72 \\ 
+			-82.72 & 395.22 & -82.72 & -229.78 \\ 
+			-29.78 & -82.72 & 195.22 & -82.72 \\ 
+			-82.72 & -229.78 & -82.72 & 395.22 
 			\end{pmatrix}.
 		\end{align*}
 		This leads to the initial prior satisfying the zero-sum constraint for the seasonal components to be $(\bphi_0|\sD_0) \sim \text{N}(\bm_0^s,\bC_0^s)$. Given a state vector $\btheta_t = (\theta_{1,t},\theta_{2,t},\phi_{1,t},\ldots,\phi_{4,t})'$, the initial prior for the DLM is of the form $(\btheta_0|\sD_0) \sim \text{N}(\bm_0,\bC_0)$, where
 		\begin{align*}
-			\bm_0 & = (220,-1.5, -50,  25,  50, -25)' \\
+			\bm_0 & = (220,-1.5, -25, -50,  25,  50)' \\
 			\bC_0 & = \begin{pmatrix}
 			225.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
 			0.00 & 0.49 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
-			0.00 & 0.00 & 395.22 & -82.72 & -229.78 & -82.72 \\ 
-			0.00 & 0.00 & -82.72 & 195.22 & -82.72 & -29.78 \\ 
-			0.00 & 0.00 & -229.78 & -82.72 & 395.22 & -82.72 \\ 
-			0.00 & 0.00 & -82.72 & -29.78 & -82.72 & 195.22 \\ 
+			0.00 & 0.00 & 195.22 & -82.72 & -29.78 & -82.72 \\ 
+			0.00 & 0.00 & -82.72 & 395.22 & -82.72 & -229.78 \\ 
+			0.00 & 0.00 & -29.78 & -82.72 & 195.22 & -82.72 \\ 
+			0.00 & 0.00 & -82.72 & -229.78 & -82.72 & 395.22 \\ 
 			\end{pmatrix}.
 		\end{align*}
 		
@@ -115,10 +115,10 @@
 			\bR_1 & = \bG\bC_0\bG' + \bW_t = \begin{pmatrix}
 			225.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
 			0.00 & 0.49 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
-			0.00 & 0.00 & 195.22 & -82.72 & -29.78 & -82.72 \\ 
-			0.00 & 0.00 & -82.72 & 395.22 & -82.72 & -229.78 \\ 
-			0.00 & 0.00 & -29.78 & -82.72 & 195.22 & -82.72 \\ 
-			0.00 & 0.00 & -82.72 & -229.78 & -82.72 & 395.22 
+			0.00 & 0.00 & 395.22 & -82.72 & -229.78 & -82.72 \\ 
+			0.00 & 0.00 & -82.72 & 195.22 & -82.72 & -29.78 \\ 
+			0.00 & 0.00 & -229.78 & -82.72 & 395.22 & -82.72 \\ 
+			0.00 & 0.00 & -82.72 & -29.78 & -82.72 & 195.22 \\ 
 			\end{pmatrix}  + \bW_t\\
 			n_0 & = 12 \\
 			S_0 & = 100.
@@ -145,22 +145,44 @@
 		
 		\item \textbf{Based on this analysis, verify the findings in \cite{WHP1987b} to the effect that the regression parameter on Cost is, in retrospect, rather stable over time.}
 		
-		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter. Based on this plot, it does not appear that the values for the regression parameter change very much over time, always hovering between -1 and -2.
+		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter. Based on this plot, it does not appear that the values for the regression parameter change very much over time, always hovering between -1 and -2. Additionally, figure \ref{fig:dynvsstatic} shows the forecast functions for dynamic and fixed slopes. Note that the correlation between the forecast functions is 0.9999.
 		
 		\begin{figure}
-			\centering
-			\includegraphics[width=0.7\linewidth]{CostandRegressionParm}
-			\caption{Plot of the observed cost and a summary of the distribution of the regression parameter}
-			\label{fig:costandregressionparm}
+			\begin{minipage}{0.45\linewidth}
+				\centering
+				\includegraphics[width=0.7\linewidth]{CostandRegressionParm}
+				\caption{Plot of the observed cost and a summary of the distribution of the regression parameter}
+				\label{fig:costandregressionparm}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.45\linewidth}
+				\centering
+				\includegraphics[width=0.7\linewidth]{DynVsStaticSlope}
+				\caption{Plot of the forecasts using a dynamic slope (blue) and a nondynamic slope (green)}
+				\label{fig:dynvsstatic}
+			\end{minipage}
+			
 		\end{figure}
 		
 		\item \textbf{Produce step ahead forecasts from the end of the data in the fourth quarter of 1985 for the next three years. The estimated values of Cost to be used in forecasting ahead are given by}
 		\begin{center}
 			\includegraphics[width=0.5\linewidth]{CostFuture}
 		\end{center}
+		The step ahead forecasts can be seen in figure \ref{fig:stepahead}.
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{StepAhead}
+			\caption{Step ahead forecasts for 1986 - 1988}
+			\label{fig:stepahead}
+		\end{figure}
+		
+		
 		
 	\end{enumerate}
-	
+
+\nocite{prado2010time}
+\nocite{harrison1999bayesian}
 \bibliography{WHCh10Pr7}
 \bibliographystyle{plainnat}
 	
