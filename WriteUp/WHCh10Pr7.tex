@@ -145,7 +145,11 @@
 		
 		\item \textbf{Based on this analysis, verify the findings in \cite{WHP1987b} to the effect that the regression parameter on Cost is, in retrospect, rather stable over time.}
 		
-		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter. Based on this plot, it does not appear that the values for the regression parameter change very much over time, always hovering between -1 and -2. Additionally, figure \ref{fig:dynvsstatic} shows the forecast functions for dynamic and fixed slopes. Note that the correlation between the forecast functions is 0.9999.
+		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter over time. It does not appear that the values for the regression parameter change very much over time, always hovering between -1 and -2.
+		
+		To confirm this analysis on the scale of the forecast, a similar model to the model in part (c) was fit, but with the slope parameter forced to be non-dynamic (by setting the discount factor to 1). Figure \ref{fig:dynvsstatic} shows the forecast functions for the dynamic and fixed slope models. Almost no difference is seen, and the correlation between the two forecast functions is 0.9999.
+		
+		Based on these two analyses, a dynamic slope appears to be unnecessary for this dataset.
 		
 		\begin{figure}
 			\begin{minipage}{0.45\linewidth}
@@ -168,7 +172,10 @@
 		\begin{center}
 			\includegraphics[width=0.5\linewidth]{CostFuture}
 		\end{center}
-		The step ahead forecasts can be seen in figure \ref{fig:stepahead}.
+		For this problem, the dynamic model for slope was used even though it wasn't really necessary.
+		
+		Appealing to Harrison and West page 199, and letting $F(k)$ be the F matrix at time k, the k-step forecast distributions are $T_{38}(Ft(k),Qt(k))$ where $Ft(k)=F(k)^\top*at(k)$, $Qt(k)=F(k)^\top *Rt(k)*F(k)$,  $at(k)=G*at(k-1)$, and $ Rt(k)=G*Rt(k-1)*G^\top*(diag(\frac{1}{\delta_t^k},\frac{1}{\delta_r^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k}$))
+		The step ahead forecasts and 90\% posterior predictive intervals are shown figure \ref{fig:stepahead}.
 		
 		\begin{figure}
 			\centering
