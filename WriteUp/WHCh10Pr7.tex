@@ -174,7 +174,7 @@
 		\end{center}
 		For this problem, the dynamic model for slope was used even though it wasn't really necessary.
 		
-		Appealing to \cite{harrison1999bayesian} page 199, and letting $F(k)$ be the F matrix at time k, the k-step forecast distributions are $T_{38}(Ft(k),Qt(k))$ where $Ft(k)=F(k)^\top*at(k)$, $Qt(k)=F(k)^\top *Rt(k)*F(k)$,  $at(k)=G*at(k-1)$, and $ Rt(k)=G*Rt(k-1)*G^\top*(diag(\frac{1}{\delta_t^k},\frac{1}{\delta_r^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k}$))
+		Appealing to \cite{harrison1999bayesian} page 199, and letting $F(k)$ be the F matrix at time k, the k-step forecast distributions are $T_{50}(Ft(k),Qt(k))$ where $Ft(k)=F(k)^\top*at(k)$, $Qt(k)=F(k)^\top *Rt(k)*F(k)$,  $at(k)=G*at(k-1)$, and $ Rt(k)=G*Rt(k-1)*G^\top*(diag(\frac{1}{\delta_t^k},\frac{1}{\delta_r^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k}$))
 		The step ahead forecasts and 90\% posterior predictive intervals are shown figure \ref{fig:stepahead}.
 		
 		\begin{figure}
