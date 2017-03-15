@@ -138,7 +138,7 @@ plot(ts(q4,frequency = 4,start=c(1975,1)),main="Fourth Quarter Effect",ylab="",l
 dev.off()
 
 ## Plot showing the forecast distribution for sales
-fdist <- apply(cbind(ft,qt,nt),1,function(z){c(z[1]-qt(0.975,df=z[3])*sqrt(z[2]),z[1]+qt(0.975,df=z[3])*sqrt(z[2]),z[1])})
+fdist <- apply(cbind(ft,qt,nt),1,function(z){c(z[1]-qt(0.975,df=z[3]-6)*sqrt(z[2]),z[1]+qt(0.975,df=z[3]-6)*sqrt(z[2]),z[1])})
 # pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/ForecastDist.pdf")
 plot(sales,main="Forecast",ylim=c(min(c(fdist)),max(c(fdist))),lwd=3)
 lines(ts(fdist[1,],frequency = 4,start = c(1975,1)),col='blue',lty=3,lwd=2)
@@ -150,7 +150,7 @@ dev.off()
 ##### Part D #####
 
 ## Plot showing the relative stability of the regression parameter over time
-cdist <- apply(cbind(mt[2,],Ct[,2,2],nt),1,function(z){c(z[1] - qt(0.975,df=z[3])*sqrt(z[2]),z[1] + qt(0.975,df=z[3])*sqrt(z[2]))})
+cdist <- apply(cbind(mt[2,],Ct[,2,2],nt),1,function(z){c(z[1] - qt(0.975,df=z[3]-6)*sqrt(z[2]),z[1] + qt(0.975,df=z[3]-6)*sqrt(z[2]))})
 # pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/CostandRegressionParm.pdf")
 plot(cost,main="Cost and Regression Parameter",lwd=3,ylab='')
 apply(cdist,1,function(z){lines(ts(z,frequency = 4,start = c(1975,1)),col='red',lty=3,lwd=2)})
