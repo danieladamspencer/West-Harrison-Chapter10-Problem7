@@ -233,8 +233,8 @@ for(z in 2:12)
   qt_future[z]=t(FF_future[,z])%*%Rt_future[z,,]%*%FF_future[,z]+St[44]
   ft_future[z]=t(FF_future[,z])%*%at_future[,z]
 }
-lower_bound=ft_future-qt(.95, 44-6)*sqrt(qt_future)
-upper_bound=ft_future+qt(.95, 44-6)*sqrt(qt_future)
+lower_bound=ft_future-qt(.95, nt[44]-6)*sqrt(qt_future)
+upper_bound=ft_future+qt(.95, nt[44]-6)*sqrt(qt_future)
 
 # pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/StepAhead.pdf")
 plot(sales,main="Sales of a Confectionary Product",xlim=c(1975,1989),
