@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.11.29)  13 MAR 2017 10:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.11.29)  15 MAR 2017 09:37
 entering extended mode
 **./WHCh10Pr7.tex
 (WHCh10Pr7.tex
@@ -285,25 +285,25 @@ arm.pdf, id=43, 505.89pt x 505.89pt>
 File: CostandRegressionParm.pdf Graphic file (type pdf)
 
 <use CostandRegressionParm.pdf>
-Package pdftex.def Info: CostandRegressionParm.pdf used on input line 153.
+Package pdftex.def Info: CostandRegressionParm.pdf used on input line 157.
 (pdftex.def)             Requested size: 170.73596pt x 170.73436pt.
 
 <DynVsStaticSlope.pdf, id=44, 505.89pt x 505.89pt>
 File: DynVsStaticSlope.pdf Graphic file (type pdf)
  <use DynVsStaticSlope.pdf>
-Package pdftex.def Info: DynVsStaticSlope.pdf used on input line 160.
+Package pdftex.def Info: DynVsStaticSlope.pdf used on input line 164.
 (pdftex.def)             Requested size: 170.73596pt x 170.73436pt.
 
 <CostFuture.png, id=45, 258.9675pt x 82.05656pt>
 File: CostFuture.png Graphic file (type png)
  <use CostFuture.png>
-Package pdftex.def Info: CostFuture.png used on input line 169.
+Package pdftex.def Info: CostFuture.png used on input line 173.
 (pdftex.def)             Requested size: 262.1236pt x 83.06552pt.
 
 <StepAhead.pdf, id=46, 505.89pt x 505.89pt>
 File: StepAhead.pdf Graphic file (type pdf)
  <use StepAhead.pdf>
-Package pdftex.def Info: StepAhead.pdf used on input line 175.
+Package pdftex.def Info: StepAhead.pdf used on input line 182.
 (pdftex.def)             Requested size: 379.41585pt x 379.42427pt.
  (WHCh10Pr7.bbl) [5 <./CostandRegressionParm.pdf> <./DynVsStaticSlope.pdf> <./C
 ostFuture.png>]
@@ -320,18 +320,18 @@ Here is how much of TeX's memory you used:
 /public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
 amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb>
-Output written on WHCh10Pr7.pdf (6 pages, 239735 bytes).
+10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
+y7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on WHCh10Pr7.pdf (6 pages, 253973 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
+ 117 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -73,7 +73,7 @@
 		\end{align*}
 		Applying Theorem 8.2 yields
 		\begin{align*}
-			U & = 1700 \\ A & = (0.1323529, 0.3676471, 0.1323529, 0.3676471)' \\
+			U & = 1700 \\ \bA & = (0.1323529, 0.3676471, 0.1323529, 0.3676471)' \\
 			\bm_0^s & = (-25,-50,25,50)' \\
 			\bC_0^s & = \begin{pmatrix}
 			195.22 & -82.72 & -29.78 & -82.72 \\ 
@@ -145,7 +145,7 @@
 		
 		\item \textbf{Based on this analysis, verify the findings in \cite{WHP1987b} to the effect that the regression parameter on Cost is, in retrospect, rather stable over time.}
 		
-		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter over time. It does not appear that the values for the regression parameter change very much over time, always hovering between -1 and -2.
+		Figure \ref{fig:costandregressionparm} shows the values for Cost relative to the estimates of the regression parameter over time. It does not appear that the values for the regression parameter change very much over time, always hovering between -1.5 and -0.8
 		
 		To confirm this analysis on the scale of the forecast, a similar model to the model in part (c) was fit, but with the slope parameter forced to be non-dynamic (by setting the discount factor to 1). Figure \ref{fig:dynvsstatic} shows the forecast functions for the dynamic and fixed slope models. Almost no difference is seen, and the correlation between the two forecast functions is 0.9999.
 		
@@ -174,7 +174,7 @@
 		\end{center}
 		For this problem, the dynamic model for slope was used even though it wasn't really necessary.
 		
-		Appealing to Harrison and West page 199, and letting $F(k)$ be the F matrix at time k, the k-step forecast distributions are $T_{38}(Ft(k),Qt(k))$ where $Ft(k)=F(k)^\top*at(k)$, $Qt(k)=F(k)^\top *Rt(k)*F(k)$,  $at(k)=G*at(k-1)$, and $ Rt(k)=G*Rt(k-1)*G^\top*(diag(\frac{1}{\delta_t^k},\frac{1}{\delta_r^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k}$))
+		Appealing to \cite{harrison1999bayesian} page 199, and letting $F(k)$ be the F matrix at time k, the k-step forecast distributions are $T_{38}(Ft(k),Qt(k))$ where $Ft(k)=F(k)^\top*at(k)$, $Qt(k)=F(k)^\top *Rt(k)*F(k)$,  $at(k)=G*at(k-1)$, and $ Rt(k)=G*Rt(k-1)*G^\top*(diag(\frac{1}{\delta_t^k},\frac{1}{\delta_r^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k},\frac{1}{\delta_s^k}$))
 		The step ahead forecasts and 90\% posterior predictive intervals are shown figure \ref{fig:stepahead}.
 		
 		\begin{figure}

@@ -237,11 +237,11 @@ lower_bound=ft_future-qt(.95, 44-6)*sqrt(qt_future)
 upper_bound=ft_future+qt(.95, 44-6)*sqrt(qt_future)
 
 # pdf("~/GitHub/West-Harrison-Chapter10-Problem7/WriteUp/StepAhead.pdf")
-plot(sales,main="Sales of an Confectionary Product",xlim=c(1975,1989),
+plot(sales,main="Sales of a Confectionary Product",xlim=c(1975,1989),
      ylim=c(min(c(sales,lower_bound)),max(c(sales,upper_bound))),lwd=3)
-lines(ts(lower_bound,frequency = 4,start=c(1986,1)),col='green',lwd=3,lty=3)
+lines(ts(lower_bound,frequency = 4,start=c(1986,1)),col='purple',lwd=3,lty=3)
 lines(ts(ft_future,frequency=4,start=c(1986,1)),col="blue",lwd=3)
-lines(ts(upper_bound,frequency = 4,start=c(1986,1)),col='green',lwd=3,lty=3)
-legend('topleft',legend = c("Observed","Forecasted Mean","Forecasted 90% Prediction Interval"),col=c('black','blue','green'),
+lines(ts(upper_bound,frequency = 4,start=c(1986,1)),col='purple',lwd=3,lty=3)
+legend('topleft',legend = c("Observed","Forecasted Mean","Forecasted 90% Prediction Interval"),col=c('black','blue','purple'),
        lty=c(1,1,3),bty='n',lwd=rep(3,3))
 dev.off()
